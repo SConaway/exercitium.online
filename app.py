@@ -1,7 +1,13 @@
+import socketio
 from gen import GameCode
 from flask import Flask , jsonify
+from flask_socketio import SocketIO
 
 app =  Flask(__name__)
+app.config["SECRET_KEY"] = "$6Cti2TGf1f4k"
+socketio = SocketIO(app)
+
+
 
 
 @app.route("/")
@@ -15,6 +21,9 @@ def start():
     response = {"gamecode":gamecode}
     return jsonify(response)
 
+@socketio.on('join')
+def join(gamedetails):
+    print('received json: ' + str(gamedetails))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+   socketio.run(app)
