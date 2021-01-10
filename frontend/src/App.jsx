@@ -3,6 +3,7 @@ import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Welcome from './Welcome';
 import Student from './Student';
+import StudentSubmit from './StudentSubmit';
 import Teacher from './Teacher';
 
 import { useColorMode, useColorModeValue, IconButton } from '@chakra-ui/react';
@@ -25,6 +26,9 @@ export default function App() {
         <Route path="/teacher">
           <Teacher />
         </Route>
+        <Route path="/studentsubmit">
+          <StudentSubmit />
+        </Route>
         <Route path="/">
           <Welcome />
         </Route>
@@ -34,7 +38,7 @@ export default function App() {
         size="md"
         fontSize="lg"
         aria-label={`Switch to ${themeToggleText} mode`}
-        variant="ghost"
+        variant="outline"
         color="current"
         ml={{ base: '0', md: '3' }}
         onClick={toggleColorMode}
@@ -45,8 +49,6 @@ export default function App() {
           bottom: '20px',
           right: '20px',
         }}
-        border="1px"
-        borderColor="gray.500"
       />
     </Router>
   );

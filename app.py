@@ -3,9 +3,12 @@ from gen import GameCode
 from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
 from flask_socketio import SocketIO
 
+from dotenv import load_dotenv
+load_dotenv(verbose=True)
+
 app =  Flask(__name__, static_folder='public')
 app.config["SECRET_KEY"] = "$6Cti2TGf1f4k"
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins=os.getenv("CORS_HEADERS")) # Remove that arg when done developing!
 
 @app.route('/dist/<path:path>')
 def dist(path):
@@ -26,7 +29,7 @@ def serve(path):
     else:
         return send_from_directory(app.static_folder, 'index.html')
 
-@app.route("/game/start")
+@app.route("/game/start",methods=['POST'])
 def start():
     gamecode = GameCode.generate()
     response = {"gamecode":gamecode}
