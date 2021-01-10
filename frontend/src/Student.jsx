@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import {
   VStack,
@@ -8,6 +8,8 @@ import {
   FormLabel,
   Box,
   useColorModeValue,
+  Heading,
+  useToast,
 } from '@chakra-ui/react';
 
 import io from 'socket.io-client';
@@ -15,21 +17,79 @@ import io from 'socket.io-client';
 export default function Student() {
   const [studentName, setStudentName] = useState('');
   const [studentTeam, setStudentTeam] = useState('');
+  const [answer, setAnswer] = useState('');
+
   const [gameID, setGameID] = useState('');
+
   const boxBackground = useColorModeValue('#EDF2F7', '#171923');
   const borderColor = useColorModeValue('#718096', '#718096');
 
+  const [connected, setConnected] = useState(false);
+  const [joinedGame, setJoinedGame] = useState(false);
+  const [waitingForQuestion, setWaitingForQuestion] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState({
+    number: 0,
+    text: '',
+  });
+
+  const socketRef = useRef(null);
+
+  const toast = useToast();
+
   useEffect(() => {
     const socket = io(import.meta.env['SNOWPACK_PUBLIC_SOCKET.IO_PATH']);
-    socket.on('connect', () => console.log('connected'));
+    socket.on('connect', () => {
+      console.log('connected');
+      setConnected(true);
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log('disconnected');
+      setConnected(false);
+
+      toast({
+        title: 'Disconnected from server',
+        description: `${reason}`,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    });
+
+    socketRef.current = socket;
 
     // CLEAN UP THE EFFECT
     return () => socket.disconnect();
     //
   }, []);
 
+  const join = () => {
+    console.log(`join ${gameID}`);
+
+    socketRef.current.emit('join-session', gameID, studentName, studentTeam);
+  };
+
+  const submit = () => {
+    console.log(socketRef.current);
+
+    socketRef.current.emit(
+      'submit',
+      answer,
+      studentTeam,
+      question.number,
+      gameID,
+      studentName,
+    );
+
+    toast({
+      title: 'Submitted!',
+      description: `Your Answer: ${answer}`,
+      status: 'info',
+    });
+  };
+
   let content;
-  if (true)
+  if (!joinedGame)
     // socket.io not connected
     content = (
       <VStack
@@ -69,14 +129,39 @@ export default function Student() {
             borderColor={borderColor}
             onChange={(event) => setGameID(event.target.value)}
             placeholder="Game ID"
+            onSubmit={join}
           />
         </FormControl>
-        <Button
-          size="lg"
-          colorScheme="green"
-          onClick={() => console.log('join...')}
-        >
+        <Button size="lg" colorScheme="green" onClick={join}>
           Join!
+        </Button>
+      </VStack>
+    );
+
+  if (connected && joinedGame)
+    content = (
+      <VStack
+        spacing="24px"
+        bg={boxBackground}
+        p="48px"
+        minWidth="40%"
+        maxWidth="700px"
+        borderRadius="12px"
+      >
+        <Heading fontSize="1.7rem" textAlign="center">
+          {currentQuestion.number + 1}: {currentQuestion.text}
+        </Heading>
+        <FormControl id="game">
+          <Input
+            type="text"
+            value={answer}
+            borderColor={borderColor}
+            onChange={(event) => setAnswer(event.target.value)}
+            placeholder="Your Answer"
+          />
+        </FormControl>
+        <Button size="lg" colorScheme="green" onClick={submit}>
+          Submit
         </Button>
       </VStack>
     );
