@@ -45,7 +45,7 @@ def start():
     try:
         post_data = request.get_json(force=True)
     except:
-        return jsonify("ok": False, "error": "Failed to get questions from posted body. Please ensure that the body is a JSON array of strings.")
+        return jsonify({"ok": False, "error": "Failed to get questions from posted body. Please ensure that the body is a JSON array of strings."})
     gamecode = GameCode.generate()
     # r.hmset(gamecode)
     # print(r.hmget(gamecode))
