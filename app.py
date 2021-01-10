@@ -47,6 +47,8 @@ def start():
     except:
         return jsonify({"ok": False, "error": "Failed to get questions from posted body. Please ensure that the body is a JSON array of strings."})
     gamecode = GameCode.generate()
+    # r.hmset(gamecode)
+    # print(r.hmget(gamecode))
     response = {"gamecode":gamecode}
     qs = post_data.split(",")
     r.hset(gamecode, mapping={'currentQ': 0, 'teams': [], 'questions': qs})
@@ -59,7 +61,7 @@ def handle_join(username,teamnumber,gamecode):
 
 
 @socketio.on('answer')
-def handle_answer(answer, team_no, q_no, game_id, username):
+def handle_answer(answer, team_no, q_no, game_id, username ,gamecode):
     socketio.emit('answer-submitted', answer, team_no, q_no, game_id, username, room=gamecode)
 
 @socketio.on('question')
