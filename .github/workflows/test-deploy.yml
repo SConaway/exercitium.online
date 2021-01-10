@@ -1,0 +1,23 @@
+# test frontend
+# test backend
+# deploy!
+
+name: Test + Deploy
+
+on:
+  push:
+    branches: [ main ]
+  
+jobs:
+  deploy:
+    name: Deploy All
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd frontend && npm install && npm run build & cd ..
+        name: Build Frontend
+      - name: Deploy to Google App Engine
+        uses: atRobertoFlores/gae_deploy_action@master
+        with:
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          project_name: ${{ secrets.GCP_PROJECT_NAME }}

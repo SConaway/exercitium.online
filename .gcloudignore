@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/flask,python,appengine,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask,python,appengine,node
 
+# when deploying, the frontend is already built, so we don't need to deploy the source as well
+frontend/
+
 ### AppEngine ###
 # Google App Engine generated folder
 appengine-generated/
@@ -320,6 +323,3 @@ dist
 # profiling data
 
 # End of https://www.toptal.com/developers/gitignore/api/flask,python,appengine,node
-
-
-/public

@@ -1,7 +1,7 @@
 import socketio, os
 from gen import GameCode
 from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO,join_room
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
@@ -35,9 +35,12 @@ def start():
     response = {"gamecode":gamecode}
     return jsonify(response)
 
-@socketio.on('join')
-def join(gamedetails):
-    print('received json: ' + str(gamedetails))
+
+
+@socketio.on('join-session')
+def handle_join(gamecode):
+    join_room(gamecode)
+  
 
 if __name__ == "__main__":
    socketio.run(app)
