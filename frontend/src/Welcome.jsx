@@ -5,6 +5,7 @@ import {
   Text,
   Stack,
   VStack,
+  HStack,
   useColorModeValue,
   Button,
   Box,
@@ -13,11 +14,11 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 
 function Welcome() {
-  const buttonBackground = useColorModeValue('grey.100', 'grey.800');
+  const buttonBackground = useColorModeValue('#fff', '#4A5568');
+  const boxBackground = useColorModeValue('#E2E8F0', '#171923');
 
   return (
     <Box
-      // bg="tomato"
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -25,22 +26,22 @@ function Welcome() {
       h="100vh"
       p={2}
     >
-      <VStack spacing="24px">
-        <Heading align="center">Welcome to exercitium.online!</Heading>
+      <VStack spacing="24px" bg={boxBackground} p="48px" minWidth="40%" borderRadius="12px">
+        <Heading align="center">Welcome to Exercitium!</Heading>
         <Text fontSize="lg" align="center">
           To get started, please choose Student or Teacher:
         </Text>
-        <Stack
+        <HStack
           // bg={buttonBackground}
           spacing="24px"
         >
-          <Button as={RouterLink} to="/student" size="lg">
+          <Button as={RouterLink} to="/student" bg={buttonBackground} size="lg">
             Student
           </Button>
-          <Button as={RouterLink} to="/teacher" size="lg">
+          <Button as={RouterLink} to="/teacher" bg={buttonBackground} size="lg">
             Teacher
           </Button>
-        </Stack>
+        </HStack>
       </VStack>
     </Box>
   );
