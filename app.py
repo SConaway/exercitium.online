@@ -3,9 +3,11 @@ from gen import GameCode
 from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
 from flask_socketio import SocketIO, join_room
 import redis 
-
 from dotenv import load_dotenv
+
 load_dotenv(verbose=True)
+
+os.system('ls -R')
 
 app =  Flask(__name__, static_folder='public')
 app.config["SECRET_KEY"] = "$6Cti2TGf1f4k"
