@@ -324,5 +324,6 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/flask,python,appengine,node
 
-# force include public/
-!public!
+# force include public/ and public/dist/
+!public/
+!public/dist/

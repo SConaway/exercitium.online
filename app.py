@@ -1,10 +1,10 @@
 import socketio, os
 from gen import GameCode
-from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
+from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort, request
 from flask_socketio import SocketIO, join_room
 import redis 
-
 from dotenv import load_dotenv
+
 load_dotenv(verbose=True)
 
 app =  Flask(__name__, static_folder='public')
@@ -42,10 +42,15 @@ def serve(path):
 
 @app.route("/game/start",methods=['POST'])
 def start():
+    try:
+        post_data = request.json
+    except:
+        return jsonify("ok": False, "error": "Failed to get questions from posted body. Please ensure that the body is a JSON array of strings.")
     gamecode = GameCode.generate()
     # r.hmset(gamecode)
     # print(r.hmget(gamecode))
     response = {"gamecode":gamecode}
+    r.hset(gamecode, mapping={'currentQ': 0, 'teams': {}, 'questions': post_data})
     return jsonify(response)
 
 
