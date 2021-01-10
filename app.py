@@ -5,7 +5,7 @@ from flask_socketio import SocketIO
 
 app =  Flask(__name__, static_folder='public')
 app.config["SECRET_KEY"] = "$6Cti2TGf1f4k"
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*") # Remove that arg when done developing!
 
 @app.route('/dist/<path:path>')
 def dist(path):
