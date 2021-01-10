@@ -1,0 +1,9 @@
+# yeeted from https://cloud.google.com/appengine/docs/standard/python3/building-app/writing-web-service
+
+runtime: python37
+
+  # This handler routes all requests not caught above to your main app. It is
+  # required when static routes are defined, but can be omitted (along with
+  # the entire handlers section) when there are no static files defined.
+- url: /.*
+  script: auto
