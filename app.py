@@ -61,7 +61,7 @@ def handle_join(username,teamnumber,gamecode):
 
 
 @socketio.on('answer')
-def handle_answer(answer, team_no, q_no, game_id, username):
+def handle_answer(answer, team_no, q_no, game_id, username ,gamecode):
     socketio.emit('answer-submitted', answer, team_no, q_no, game_id, username, room=gamecode)
 
 @socketio.on('question')
