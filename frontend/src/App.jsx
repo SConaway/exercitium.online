@@ -3,6 +3,7 @@ import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Welcome from './Welcome';
 import Student from './Student';
+import StudentSubmit from './StudentSubmit';
 import Teacher from './Teacher';
 
 import { useColorMode, useColorModeValue, IconButton } from '@chakra-ui/react';
@@ -24,6 +25,9 @@ export default function App() {
         </Route>
         <Route path="/teacher">
           <Teacher />
+        </Route>
+        <Route path="/studentsubmit">
+          <StudentSubmit />
         </Route>
         <Route path="/">
           <Welcome />
