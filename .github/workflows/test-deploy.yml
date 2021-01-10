@@ -21,7 +21,7 @@ jobs:
         name: Upgrade npm
       - run: cd frontend && npm install && npm run build && cd ..
         name: Build Frontend
-      - run: cat ${{ secrets.PRODUCTION_ENV }} > .env
+      - run: echo ${{ secrets.PRODUCTION_ENV }} > .env
         name: Paste production environment variables into .env for gcloud
       - name: Deploy to Google App Engine
         uses: atRobertoFlores/gae_deploy_action@master
