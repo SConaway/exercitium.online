@@ -43,7 +43,7 @@ def serve(path):
 @app.route("/game/start",methods=['POST'])
 def start():
     try:
-        post_data = request.json
+        post_data = request.get_json(force=True)
     except:
         return jsonify("ok": False, "error": "Failed to get questions from posted body. Please ensure that the body is a JSON array of strings.")
     gamecode = GameCode.generate()
@@ -63,7 +63,9 @@ def handle_join(gamecode):
 def handle_participant(username,teamnumber,gamecode):
     socketio.emit('participant-joined',room=gamecode)
 
-
+@socketio.on('question')
+def change_question(game_id, new_question_no):
+    socketio.emit('participant-joined',room=gamecode)
    
 
 
