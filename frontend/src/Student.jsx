@@ -30,6 +30,7 @@ export default function Student() {
   const [currentQuestion, setCurrentQuestion] = useState({
     number: 0,
     text: '',
+    submitted: false,
   });
 
   const socketRef = useRef(null);
@@ -67,10 +68,18 @@ export default function Student() {
     console.log(`join ${gameID}`);
 
     socketRef.current.emit('join-session', gameID, studentName, studentTeam);
+
+    socketRef.current.on('question', (gameID, questionNumber, questionText) => {
+      setCurrentQuestion({
+        number: questionNumber,
+        text: questionText,
+        submitted: false,
+      });
+    });
   };
 
   const submit = () => {
-    console.log(socketRef.current);
+    setCurrentQuestion({ ...currentQuestion, submitted: true });
 
     socketRef.current.emit(
       'submit',
@@ -161,7 +170,7 @@ export default function Student() {
           />
         </FormControl>
         <Button size="lg" colorScheme="green" onClick={submit}>
-          Submit
+          {submitted ? 'Resubmit' : 'Submit'}
         </Button>
       </VStack>
     );
