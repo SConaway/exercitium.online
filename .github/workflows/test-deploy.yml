@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
+      - run: npm version
+        name: Get NPM version
       - run: cd frontend && npm install && npm run build & cd ..
         name: Build Frontend
       - name: Deploy to Google App Engine
