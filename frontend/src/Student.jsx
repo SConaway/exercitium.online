@@ -10,6 +10,11 @@ import {
   useColorModeValue,
   Heading,
   useToast,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/react';
 
 import io from 'socket.io-client';
@@ -118,16 +123,27 @@ export default function Student() {
             placeholder="Your name"
           />
         </FormControl>
+
         <FormControl id="team">
           <FormLabel>Please enter your team number:</FormLabel>
-          <Input
-            type="number"
-            value={studentTeam}
+          <NumberInput
+            // defaultValue={15}
+            min={1}
+            max={4}
+            keepWithinRange={true}
+            // clampValueOnBlur={false}
             borderColor={borderColor}
-            onChange={(event) => setStudentTeam(event.target.value)}
-            placeholder="Team #"
-          />
+            value={studentTeam}
+            onChange={setStudentTeam}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
         </FormControl>
+
         <FormControl id="game">
           <FormLabel>
             Please enter the ID of the game you are trying to join:
