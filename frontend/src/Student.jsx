@@ -7,23 +7,27 @@ import {
   FormControl,
   FormLabel,
   Box,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 export default function Student() {
   const [studentName, setStudentName] = useState('');
   const [studentTeam, setStudentTeam] = useState('');
   const [gameID, setGameID] = useState('');
+  const boxBackground = useColorModeValue('#EDF2F7', '#171923');
+  const borderColor = useColorModeValue('#718096', '#718096');
 
   let content;
   if (true)
     // socket.io not connected
     content = (
-      <VStack spacing="24px">
+      <VStack spacing="24px" bg={boxBackground} p="48px" minWidth="40%" borderRadius="12px">
         <FormControl id="name">
           <FormLabel>Please enter your name:</FormLabel>
           <Input
             type="text"
             value={studentName}
+            borderColor={borderColor}
             onChange={(event) => setStudentName(event.target.value)}
             placeholder="Your name"
           />
@@ -33,6 +37,7 @@ export default function Student() {
           <Input
             type="number"
             value={studentTeam}
+            borderColor={borderColor}
             onChange={(event) => setStudentTeam(event.target.value)}
             placeholder="Team #"
           />
@@ -44,6 +49,7 @@ export default function Student() {
           <Input
             type="text"
             value={gameID}
+            borderColor={borderColor}
             onChange={(event) => setGameID(event.target.value)}
             placeholder="Game ID"
           />

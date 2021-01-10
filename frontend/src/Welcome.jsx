@@ -15,7 +15,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 function Welcome() {
   const buttonBackground = useColorModeValue('#fff', '#4A5568');
-  const boxBackground = useColorModeValue('#E2E8F0', '#171923');
+  const boxBackground = useColorModeValue('#EDF2F7', '#171923');
 
   return (
     <Box
