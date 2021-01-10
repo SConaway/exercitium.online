@@ -78,7 +78,10 @@ export default function Teacher() {
   const createGame = async () => {
     const response = await fetch('/game/start', {
       method: 'POST',
-      body: questions,
+      body: JSON.stringify(questions),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     try {
