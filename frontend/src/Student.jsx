@@ -16,7 +16,7 @@ export default function Student() {
 
   let content;
   if (true)
-    // socket.io connected
+    // socket.io not connected
     content = (
       <VStack spacing="24px">
         <FormControl id="name">

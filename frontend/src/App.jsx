@@ -34,7 +34,7 @@ export default function App() {
         size="md"
         fontSize="lg"
         aria-label={`Switch to ${themeToggleText} mode`}
-        variant="ghost"
+        variant="outline"
         color="current"
         ml={{ base: '0', md: '3' }}
         onClick={toggleColorMode}
@@ -45,8 +45,6 @@ export default function App() {
           bottom: '20px',
           right: '20px',
         }}
-        border="1px"
-        borderColor="gray.500"
       />
     </Router>
   );
