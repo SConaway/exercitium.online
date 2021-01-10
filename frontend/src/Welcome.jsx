@@ -41,9 +41,6 @@ function Welcome() {
           <Button as={RouterLink} to="/teacher" bg={buttonBackground} size="lg">
             Teacher
           </Button>
-          <Button as={RouterLink} to="/teacherwatch" bg={buttonBackground} size="lg">
-            Teacher
-          </Button>
         </HStack>
       </VStack>
     </Box>
