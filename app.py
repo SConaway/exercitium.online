@@ -43,6 +43,8 @@ def serve(path):
 @app.route("/game/start",methods=['POST'])
 def start():
     gamecode = GameCode.generate()
+    # r.hmset(gamecode)
+    # print(r.hmget(gamecode))
     response = {"gamecode":gamecode}
     return jsonify(response)
 
