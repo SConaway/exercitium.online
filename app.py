@@ -1,7 +1,7 @@
 import socketio, os
 from gen import GameCode
 from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
-from flask_socketio import SocketIO,join_room
+from flask_socketio import SocketIO, join_room
 import redis 
 
 from dotenv import load_dotenv
