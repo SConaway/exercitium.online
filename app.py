@@ -40,7 +40,16 @@ def start():
 @socketio.on('join-session')
 def handle_join(gamecode):
     join_room(gamecode)
-  
+
+@socketio.on('participant-joined')
+def handle_participant(username,teamnumber,gamecode):
+    socketio.emit('participant-joined',room=gamecode)
+
+
+   
+
+
+
 
 if __name__ == "__main__":
    socketio.run(app)

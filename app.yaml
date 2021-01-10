@@ -3,9 +3,9 @@
 runtime: python37
 entrypoint: gunicorn --worker-class eventlet -w 1 app:app -b 0.0.0.0:8080
 
-handlers:
-  # This handler routes all requests not caught above to your main app. It is
-  # required when static routes are defined, but can be omitted (along with
-  # the entire handlers section) when there are no static files defined.
-- url: /.*
-  script: auto
+# handlers:
+#   # This handler routes all requests not caught above to your main app. It is
+#   # required when static routes are defined, but can be omitted (along with
+#   # the entire handlers section) when there are no static files defined.
+# - url: /.*
+#   script: auto
