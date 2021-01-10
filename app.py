@@ -2,7 +2,7 @@ import socketio, os
 from gen import GameCode
 <<<<<<< HEAD
 from flask import Flask , jsonify
-from flask_socketio import SocketIO , join_room
+from flask_socketio import SocketIO , join_room, send
 =======
 from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
 from flask_socketio import SocketIO
@@ -42,9 +42,10 @@ def start():
 
 
 
-# @socketio.on('join-session')
-# def handle_join(gamecode):
-#     join_room()
+@socketio.on('join-session')
+def handle_join(gamecode):
+    join_room(gamecode)
+  
 
 if __name__ == "__main__":
    socketio.run(app)
