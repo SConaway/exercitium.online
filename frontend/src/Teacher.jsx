@@ -18,7 +18,12 @@ import {
   Flex,
   IconButton,
 } from '@chakra-ui/react';
-import { DeleteIcon, PlusSquareIcon } from '@chakra-ui/icons';
+import {
+  CheckIcon,
+  CloseIcon,
+  DeleteIcon,
+  PlusSquareIcon,
+} from '@chakra-ui/icons';
 
 import {
   Table,
@@ -68,6 +73,23 @@ export default function Teacher() {
       });
     });
 
+    socket.on(
+      'answer-submitted',
+      (answer, studentTeam, questionNumber, gameID, studentName) => {
+        let modifiedSubmissions = [...submissions];
+
+        modifiedSubmissions.push({
+          answer,
+          studentTeam,
+          questionNumber,
+          gameID,
+          studentName,
+        });
+
+        setSubmissions(modifiedSubmissions);
+      },
+    );
+
     socketRef.current = socket;
 
     // CLEAN UP THE EFFECT
@@ -78,7 +100,10 @@ export default function Teacher() {
   const createGame = async () => {
     const response = await fetch('/game/start', {
       method: 'POST',
-      body: questions,
+      body: JSON.stringify(questions),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     try {
@@ -222,43 +247,68 @@ export default function Teacher() {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow bg="white">
-                <TableCell>
-                  <Text fontWeight="bold" fontSize="sm">
-                    Steven
-                  </Text>
-                </TableCell>
-                <TableCell>
-                  <Text fontWeight="bold" fontSize="sm">
-                    2
-                  </Text>
-                </TableCell>
+              {submissions.map((item) => (
+                <TableRow bg="white">
+                  <TableCell>
+                    <Text fontWeight="bold" fontSize="sm">
+                      {item.studentName}
+                    </Text>
+                  </TableCell>
+                  <TableCell>
+                    <Text fontWeight="bold" fontSize="sm">
+                      {item.studentTeam}
+                    </Text>
+                  </TableCell>
 
-                <TableCell>
-                  <Text fontSize="sm" color="gray.500">
-                    Spiders
-                  </Text>
-                </TableCell>
-                <TableCell>
-                  <Text fontSize="sm" color="gray.500">
-                    <Flex>
-                      <IconButton
-                        mr="3px"
-                        aria-label="Correct"
-                        icon={<Text>✓</Text>}
-                      />
-                      <IconButton
-                        aria-label="Incorrect"
-                        icon={<Text>𐄂</Text>}
-                      />
-                    </Flex>
-                  </Text>
-                </TableCell>
-              </TableRow>
+                  <TableCell>
+                    <Text fontSize="sm" color="gray.500">
+                      {item.answer}
+                    </Text>
+                  </TableCell>
+                  <TableCell>
+                    <Text fontSize="sm" color="gray.500">
+                      <Flex>
+                        <IconButton
+                          mr="3px"
+                          aria-label="Correct"
+                          icon={<CheckIcon />}
+                          onClick={() =>
+                            socketRef.current.emit(
+                              'validate',
+                              item.studentTeam,
+                              item.questionNumber,
+                              item.studentName,
+                              gameID,
+                            )
+                          }
+                        />
+                        <IconButton
+                          aria-label="Incorrect"
+                          icon={<CloseIcon />}
+                          onClick={() =>
+                            socketRef.current.emit(
+                              'invalidate',
+                              item.studentTeam,
+                              item.questionNumber,
+                              item.studentName,
+                              gameID,
+                            )
+                          }
+                        />
+                      </Flex>
+                    </Text>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
 
-          <Button size="lg" colorScheme="green" onClick={nextQuestion}>
+          <Button
+            size="lg"
+            colorScheme="green"
+            onClick={nextQuestion}
+            rightIcon={<ChevronRightIcon />}
+          >
             Next Question
           </Button>
         </VStack>
