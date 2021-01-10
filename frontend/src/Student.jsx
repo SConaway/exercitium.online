@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 
 import {
-  Container,
-  Heading,
-  Text,
-  Stack,
-  Center,
-  Flex,
   VStack,
-  useColorModeValue,
   Button,
   Input,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
+  Box,
 } from '@chakra-ui/react';
 
 export default function Student() {
   const [studentName, setStudentName] = useState('');
-  const [studentTeam, setstudentTeam] = useState('');
+  const [studentTeam, setStudentTeam] = useState('');
   const [gameID, setGameID] = useState('');
 
   let content;
@@ -67,15 +59,16 @@ export default function Student() {
     );
 
   return (
-    <Container
+    <Box
       // bg="tomato"
       display="flex"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
       h="100vh"
+      p={2}
     >
       {content}
-    </Container>
+    </Box>
   );
 }

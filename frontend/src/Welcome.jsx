@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Container,
   Heading,
   Text,
   Stack,
-  Center,
-  Flex,
   VStack,
   useColorModeValue,
   Button,
+  Box,
 } from '@chakra-ui/react';
 
 import { Link as RouterLink } from 'react-router-dom';
@@ -18,13 +16,14 @@ function Welcome() {
   const buttonBackground = useColorModeValue('grey.100', 'grey.800');
 
   return (
-    <Container
+    <Box
       // bg="tomato"
       display="flex"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
       h="100vh"
+      p={2}
     >
       <VStack spacing="24px">
         <Heading align="center">Welcome to exercitium.online!</Heading>
@@ -43,7 +42,7 @@ function Welcome() {
           </Button>
         </Stack>
       </VStack>
-    </Container>
+    </Box>
   );
 }
 

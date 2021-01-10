@@ -5,12 +5,7 @@ import Welcome from './Welcome';
 import Student from './Student';
 import Teacher from './Teacher';
 
-import {
-  useColorMode,
-  Button,
-  IconButton,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { useColorMode, useColorModeValue, IconButton } from '@chakra-ui/react';
 
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
@@ -20,7 +15,7 @@ export default function App() {
   const themeToggleText = useColorModeValue('dark', 'light');
   const ThemeSwitchIcon = useColorModeValue(MoonIcon, SunIcon);
   return (
-    <Router style={{ backgroundColor: 'pink' }}>
+    <Router>
       {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
       <Switch>
@@ -34,6 +29,7 @@ export default function App() {
           <Welcome />
         </Route>
       </Switch>
+
       <IconButton
         size="md"
         fontSize="lg"
@@ -54,12 +50,4 @@ export default function App() {
       />
     </Router>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
