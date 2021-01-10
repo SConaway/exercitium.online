@@ -35,7 +35,9 @@ export default function Teacher() {
   const [gameID, setGameID] = useState('');
 
   const [questions, setQuestions] = useState(['']);
+  const [questionNumber, setQuestionNumber] = useState(0);
   const [numTeams, setNumTeams] = useState(2);
+  const [submissions, setSubmissions] = useState([]);
 
   const [connected, setConnected] = useState(false);
   const [joinedGame, setJoinedGame] = useState(false);
@@ -110,6 +112,11 @@ export default function Teacher() {
         isClosable: true,
       });
     }
+  };
+
+  const nextQuestion = () => {
+    setSubmissions([]);
+    setQuestionNumber(questionNumber + 1);
   };
 
   let content;
@@ -201,11 +208,15 @@ export default function Teacher() {
         <VStack spacing="24px">
           <Text fontSize="lg">Game ID: {gameID}</Text>
 
+          <Text fontSize="lg">
+            Current Question: {questionNumber} • {questions[questionNumber]}
+          </Text>
+
           <Table color="gray.500" minWidth="50%" maxWidth="700px">
             <TableHead>
               <TableRow>
-                <TableHeader>Team</TableHeader>
-                <TableHeader>Question</TableHeader>
+                <TableHeader>Student Name</TableHeader>
+                <TableHeader>Team Number</TableHeader>
                 <TableHeader>Answer</TableHeader>
                 <TableHeader />
               </TableRow>
@@ -214,15 +225,15 @@ export default function Teacher() {
               <TableRow bg="white">
                 <TableCell>
                   <Text fontWeight="bold" fontSize="sm">
-                    3
+                    Steven
                   </Text>
                 </TableCell>
                 <TableCell>
-                  <Text fontSize="sm" color="gray.500">
-                    What is the craziest thing ever that you've seen? What is
-                    the craziest thing ever that you've seen?
+                  <Text fontWeight="bold" fontSize="sm">
+                    2
                   </Text>
                 </TableCell>
+
                 <TableCell>
                   <Text fontSize="sm" color="gray.500">
                     Spiders
@@ -247,7 +258,7 @@ export default function Teacher() {
             </TableBody>
           </Table>
 
-          <Button size="lg" colorScheme="green" onClick={createGame}>
+          <Button size="lg" colorScheme="green" onClick={nextQuestion}>
             Next Question
           </Button>
         </VStack>
