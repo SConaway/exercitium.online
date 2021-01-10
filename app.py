@@ -26,7 +26,7 @@ def serve(path):
     else:
         return send_from_directory(app.static_folder, 'index.html')
 
-@app.route("/game/start")
+@app.route("/game/start",methods=['POST'])
 def start():
     gamecode = GameCode.generate()
     response = {"gamecode":gamecode}

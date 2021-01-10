@@ -1,3 +1,6 @@
+const httpProxy = require('http-proxy');
+const proxy = httpProxy.createServer({ target: 'http://localhost:5000' });
+
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
@@ -30,5 +33,11 @@ module.exports = {
       minify: true,
       target: 'es2018',
     },
+    routes: [
+      {
+        src: '/game/.*',
+        dest: (req, res) => proxy.web(req, res),
+      },
+    ],
   },
 };
