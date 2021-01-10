@@ -9,3 +9,6 @@ python-engineio==4.0.0
 python-dotenv==0.15.0
 python-socketio==5.0.4
 Werkzeug==1.0.1
+dnspython==1.16.0
+eventlet==0.30.0
+greenlet==0.4.17
