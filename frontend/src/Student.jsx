@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 import {
   VStack,
@@ -11,12 +10,23 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
+import io from 'socket.io-client';
+
 export default function Student() {
   const [studentName, setStudentName] = useState('');
   const [studentTeam, setStudentTeam] = useState('');
   const [gameID, setGameID] = useState('');
   const boxBackground = useColorModeValue('#EDF2F7', '#171923');
   const borderColor = useColorModeValue('#718096', '#718096');
+
+  useEffect(() => {
+    const socket = io(import.meta.env['SNOWPACK_PUBLIC_SOCKET.IO_PATH']);
+    socket.on('connect', () => console.log('connected'));
+
+    // CLEAN UP THE EFFECT
+    return () => socket.disconnect();
+    //
+  }, []);
 
   let content;
   if (true)
@@ -64,8 +74,6 @@ export default function Student() {
         <Button
           size="lg"
           colorScheme="green"
-          as={Link}
-          to="/studentsubmit"
           onClick={() => console.log('join...')}
         >
           Join!
