@@ -43,31 +43,29 @@ def serve(path):
 @app.route("/game/start",methods=['POST'])
 def start():
     try:
-        post_data = request.get_json(force=True)
+        post_data = request.get_data()
     except:
         return jsonify({"ok": False, "error": "Failed to get questions from posted body. Please ensure that the body is a JSON array of strings."})
     gamecode = GameCode.generate()
     response = {"gamecode":gamecode}
-    r.hset(gamecode, mapping={'currentQ': 0, 'teams': {}, 'questions': post_data})
+    qs = post_data.split(",")
+    r.hset(gamecode, mapping={'currentQ': 0, 'teams': [], 'questions': qs})
     return jsonify(response)
 
-
-
 @socketio.on('join-session')
-def handle_join(gamecode):
+def handle_join(username,teamnumber,gamecode):
     join_room(gamecode)
-
-@socketio.on('participant-joined')
-def handle_participant(username,teamnumber,gamecode):
     socketio.emit('participant-joined',room=gamecode)
+
+
+@socketio.on('answer')
+def handle_answer(answer, team_no, q_no, game_id, username):
+    socketio.emit('answer-submitted', answer, team_no, q_no, game_id, username, room=gamecode)
 
 @socketio.on('question')
-def change_question(game_id, new_question_no):
-    socketio.emit('participant-joined',room=gamecode)
+def change_question(game_id, new_question_no, question_text):
+    socketio.emit('question', new_question_no, question_text, room=game_id)
+
    
-
-
-
-
 if __name__ == "__main__":
-   socketio.run(app)
+   socketio.run(app, host="0.0.0.0")
