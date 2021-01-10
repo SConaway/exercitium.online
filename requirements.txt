@@ -6,5 +6,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 python-engineio==4.0.0
+python-dotenv==0.15.0
 python-socketio==5.0.4
 Werkzeug==1.0.1
