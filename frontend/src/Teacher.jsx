@@ -139,7 +139,7 @@ export default function Teacher() {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      h="100vh"
+      minHeight="100vh"
     >
       {content}
     </Box>
