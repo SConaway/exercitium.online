@@ -2,6 +2,7 @@ import socketio, os
 from gen import GameCode
 from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
 from flask_socketio import SocketIO,join_room
+import redis 
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
@@ -9,6 +10,16 @@ load_dotenv(verbose=True)
 app =  Flask(__name__, static_folder='public')
 app.config["SECRET_KEY"] = "$6Cti2TGf1f4k"
 socketio = SocketIO(app, cors_allowed_origins=os.getenv("CORS_HEADERS")) # Remove that arg when done developing!
+redis_host = os.getenv('REDIS_HOST')
+redis_pass = os.getenv('REDIS_PASS')
+redis_port = os.getenv('REDIS_PORT')
+r = redis.Redis(host=redis_host,port=redis_port,password=redis_pass)
+
+is_connected = r.ping()
+if is_connected == True:
+    print("connected to redis..")
+else:
+    print("could not reach redis..")
 
 @app.route('/dist/<path:path>')
 def dist(path):
