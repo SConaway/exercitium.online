@@ -19,7 +19,7 @@ jobs:
           node-version: "14"
       - run: npm version && npm install -g npm@7 && npm version
         name: Upgrade npm
-      - run: cd frontend && npm install && npm run build & cd ..
+      - run: cd frontend && npm install && npm run build && cd ..
         name: Build Frontend
       - name: Deploy to Google App Engine
         uses: atRobertoFlores/gae_deploy_action@master
