@@ -28,7 +28,7 @@ function Welcome() {
     >
       <VStack spacing="24px">
         <Heading align="center">Welcome to exercitium.online!</Heading>
-        <Text fontSize="lg">
+        <Text fontSize="lg" align="center">
           To get started, please choose Student or Teacher:
         </Text>
         <Stack
