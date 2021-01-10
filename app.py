@@ -1,12 +1,7 @@
 import socketio, os
 from gen import GameCode
-<<<<<<< HEAD
-from flask import Flask , jsonify
-from flask_socketio import SocketIO , join_room, send
-=======
 from flask import Flask , jsonify, redirect, url_for, send_from_directory, abort
-from flask_socketio import SocketIO
->>>>>>> 7b266849cf534121a3a8006dc5af0161ac766efb
+from flask_socketio import SocketIO,join_room
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
