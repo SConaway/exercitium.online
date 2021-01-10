@@ -64,8 +64,9 @@ def handle_answer(answer, team_no, q_no, game_id, username):
 
 @socketio.on('question')
 def change_question(game_id, new_question_no, question_text):
-    socketio.emit('question', new_question_no, question_text, room=game_id)
+    socketio.emit('new-question', new_question_no, question_text, room=game_id)
+    replace = r.get(game_id)
+    r['currentQ'] = new_question_no
 
-   
 if __name__ == "__main__":
    socketio.run(app, host="0.0.0.0")
