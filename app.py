@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv(verbose=True)
 
-os.system('ls -R')
-
 app =  Flask(__name__, static_folder='public')
 app.config["SECRET_KEY"] = "$6Cti2TGf1f4k"
 socketio = SocketIO(app, cors_allowed_origins=os.getenv("CORS_HEADERS")) # Remove that arg when done developing!
