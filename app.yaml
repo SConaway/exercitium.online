@@ -1,7 +1,7 @@
 # yeeted from https://cloud.google.com/appengine/docs/standard/python3/building-app/writing-web-service
 
 runtime: python37
-entrypoint: gunicorn --worker-class eventlet -w 1 app:app -b 0.0.0.0:8080
+entrypoint: gunicorn --worker-class eventlet -w 1 app:app -b 0.0.0.0:$PORT
 
 # handlers:
 #   # This handler routes all requests not caught above to your main app. It is
