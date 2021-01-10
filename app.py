@@ -69,6 +69,7 @@ def change_question(game_id, new_question_no, question_text):
     socketio.emit('new-question', new_question_no, question_text, room=game_id)
     replace = r.get(game_id)
     r['currentQ'] = new_question_no
+    r.set(game_id, mapping=replace)
 
 if __name__ == "__main__":
    socketio.run(app, host="0.0.0.0")
