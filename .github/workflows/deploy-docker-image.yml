@@ -38,7 +38,8 @@ jobs:
           tags: |
             sconaway/exercitium.online:latest
             ghcr.io/sconaway/exercitium.online:latest
-
+      - name: Trigger update of docker image
+        run: 'curl -H "Authorization: Bearer ${{ secrets.WEBHOOK_TOKEN }}" ${{ secrets.WEBHOOK_DEST }}'
 # jobs:
 #   deploy:
 #     name: Deploy All
