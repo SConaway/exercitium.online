@@ -37,7 +37,7 @@ jobs:
           push: true
           tags: |
             sconaway/exercitium.online:latest
-            docker.pkg.github.com/sconaway/exercitium.online/exercitium.online:latest
+            ghcr.io/sconaway/exercitium.online:latest
 
 # jobs:
 #   deploy:
