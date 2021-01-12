@@ -21,7 +21,8 @@ WORKDIR /opt/
 
 COPY frontend/ .
 
-RUN PROD=true NODE_ENV=production npm ci
+RUN npm ci
+
 RUN PROD=true NODE_ENV=production npm run build
 
 
