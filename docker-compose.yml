@@ -2,4 +2,13 @@ services:
   redis:
     image: redis
   app:
-    image:
+    image: sconaway/exercitium.online
+    ports:
+      - 80:80
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      - "REDIS_HOST=redis"
+      - "REDIS_PASS="
+      - "REDIS_PORT=6379"
