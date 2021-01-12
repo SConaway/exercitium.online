@@ -43,7 +43,9 @@ export default function Student() {
   const toast = useToast();
 
   useEffect(() => {
-    const socket = io(import.meta.env['SNOWPACK_PUBLIC_SOCKET.IO_PATH']);
+    const socket = io(
+      import.meta.env.MODE === 'production' ? '/' : 'http://localhost:5000',
+    );
     socket.on('connect', () => {
       console.log('connected');
       setConnected(true);

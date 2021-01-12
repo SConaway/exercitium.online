@@ -21,8 +21,6 @@ WORKDIR /opt/
 
 COPY frontend/ .
 
-RUN cp .env.docker .env
-
 RUN PROD=true NODE_ENV=production npm ci
 RUN PROD=true NODE_ENV=production npm run build
 
