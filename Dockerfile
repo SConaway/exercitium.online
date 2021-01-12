@@ -6,10 +6,6 @@ FROM python:3 AS venv-prep-image
 
 WORKDIR /opt/
 
-# RUN apt-get update
-# RUN apt-get install -y --no-install-recommends build-essential gcc nodejs
-
-
 RUN python -m venv /opt/venv
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
@@ -25,8 +21,10 @@ WORKDIR /opt/
 
 COPY frontend/ .
 
-RUN npm ci
-RUN npm run build
+RUN cp .env.docker .env
+
+RUN PROD=true npm ci
+RUN PROD=true npm run build
 
 
 # -----------------------------------------------------------------------------
@@ -39,7 +37,9 @@ COPY --from=venv-prep-image /opt/venv /opt/venv
 
 COPY server /opt/server/
 
-COPY --from=frontend-build-image /opt/public /opt/server/public
+COPY --from=frontend-build-image /opt/build /opt/server/public
+
+WORKDIR /opt/server
 
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
