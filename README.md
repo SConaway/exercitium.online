@@ -1,6 +1,8 @@
 # exercitium.online
 
-![Test + Deploy](https://github.com/SConaway/exercitium.online/workflows/Test%20+%20Deploy/badge.svg)
+<!-- ![Test + Deploy](https://github.com/SConaway/exercitium.online/workflows/Test%20+%20Deploy/badge.svg) -->
+
+![Deploy Docker image](https://github.com/SConaway/exercitium.online/workflows/Deploy%20Docker%20image/badge.svg)
 
 ## Running in docker:
 
