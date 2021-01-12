@@ -47,7 +47,7 @@ def start():
     # print(r.hmget(gamecode))
     response = {"gamecode":gamecode}
     # qs = post_data.split(",")
-    r.hset(gamecode, mapping={'currentQ': 0, 'teams': [])
+    r.hset(gamecode, mapping={'currentQ': 0, 'teams': []})
     return jsonify(response)
 
 @socketio.on('join-session')
