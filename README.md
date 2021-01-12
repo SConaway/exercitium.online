@@ -20,7 +20,7 @@ There also is a `docker-compose.yml` file you may use: `docker-compose.yml`.
 
 1. In `frontend/`
     1. `npm ci` to install dependencies
-    2. `PROD=true npm run build` to build the frontend
+    2. `PROD=true NODE_ENV=production npm run build` to build the frontend
     3. `cp build/ ../server/public` so the server has something to serve
 2. In `server/`
     1. `python3 -m venv env` to create a virtual environment (technically optional, but highly recommended)
@@ -31,7 +31,7 @@ There also is a `docker-compose.yml` file you may use: `docker-compose.yml`.
 
 1. In `frontend/`
     1. `npm install` to install dependencies
-    2. `npm start` to begin serving the front-end
+    2. `PROD=false NODE_ENV=development npm start` to begin serving the front-end
     3. `PROD=true npm run build && cp build/ ../server/public` to build the frontend, repeat if you want to test changes as served from the main server
 2. Start a redis server: `docker run -d --rm --name redis -p 6379:6379 redis`
     1. If you would like to use another redis host, you can by changing the appropriate variables (`REDIS_HOST`, `REDIS_PASS`, and `REDIS_PORT`).

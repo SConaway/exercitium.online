@@ -23,8 +23,8 @@ COPY frontend/ .
 
 RUN cp .env.docker .env
 
-RUN PROD=true npm ci
-RUN PROD=true npm run build
+RUN PROD=true NODE_ENV=production npm ci
+RUN PROD=true NODE_ENV=production npm run build
 
 
 # -----------------------------------------------------------------------------
