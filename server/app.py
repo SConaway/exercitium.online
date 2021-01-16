@@ -42,26 +42,26 @@ def serve(path):
 
 @app.route("/game/start")
 def start():
-    gamecode = GameCode.generate()
+    game_code = GameCode.generate()
     # r.hmset(gamecode)
     # print(r.hmget(gamecode))
-    response = {"gamecode":gamecode}
+    response = {"gamecode":game_code}
     # qs = post_data.split(",")
-    r.hset(gamecode, mapping={'currentQ': 0, 'teams': []})
+    r.hset(gamecode, mapping={'currentQ': 0, 'teams': {}})
     return jsonify(response)
 
 @socketio.on('join-session')
-def handle_join(username,teamnumber,gamecode):
+def handle_join(username,team_number,game_code):
     join_room(gamecode)
-    socketio.emit('participant-joined', username, teamnumber, room=gamecode)
-    replace = r.get(gamecode)
-    replace["teams"].append(teamnumber)
-    r.set(gamecode, mapping=replace)
+    socketio.emit('participant-joined', username, team_number, room=game_code)
+    replace = r.get(game_code)
+    replace["teams"][team_number] = 0
+    r.set(game_code, mapping=replace)
 
 
 @socketio.on('answer')
-def handle_answer(answer, team_no, q_no, game_id, username ,gamecode):
-    socketio.emit('answer-submitted', answer, team_no, q_no, game_id, username, room=gamecode)
+def handle_answer(answer, team_no, q_no, game_id, username, game_code):
+    socketio.emit('answer-submitted', answer, team_no, q_no, game_id, username, room=game_code)
 
 @socketio.on('question')
 def change_question(game_id, new_question_no, question_text):
