@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import {
   Text,
+  HStack,
   VStack,
   useColorModeValue,
   Button,
@@ -146,6 +147,8 @@ export default function Teacher() {
     setQuestionNumber(questionNumber + 1);
   };
 
+  setTimeout(window.MathJax.typeset, 200);
+
   let content;
   if (!gameID)
     // socket.io connected
@@ -178,6 +181,14 @@ export default function Teacher() {
                         placeholder={`Question ${index + 1}`}
                       />
                     </FormControl>
+                    {item && (
+                      <HStack alignItems="center" minHeight="100px">
+                        <Text fontWeight={400} fontSize="xs" color="grey">
+                          Preview:
+                        </Text>
+                        <Text>{item}</Text>
+                      </HStack>
+                    )}
                     <Button
                       rightIcon={<DeleteIcon />}
                       onClick={() => {
