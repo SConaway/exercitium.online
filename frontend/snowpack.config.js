@@ -8,36 +8,15 @@ module.exports = {
     src: { url: '/dist' },
   },
   plugins: ['@snowpack/plugin-react-refresh', '@snowpack/plugin-dotenv'],
-  install: [
-    /* ... */
-  ],
-  installOptions: {
-    /* ... */
+  optimize: {
+    bundle: true,
+    minify: true,
+    target: 'es2018',
   },
-  devOptions: {
-    /* ... */
-  },
-  buildOptions: {
-    /* ... */
-    // out: '../public',
-  },
-  proxy: {
-    /* ... */
-  },
-  alias: {
-    /* ... */
-  },
-  experiments: {
-    optimize: {
-      bundle: true,
-      minify: true,
-      target: 'es2018',
+  routes: [
+    {
+      src: '/game/.*',
+      dest: (req, res) => proxy.web(req, res),
     },
-    routes: [
-      {
-        src: '/game/.*',
-        dest: (req, res) => proxy.web(req, res),
-      },
-    ],
-  },
+  ],
 };
